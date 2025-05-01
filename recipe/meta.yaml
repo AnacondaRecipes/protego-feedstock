@@ -1,18 +1,18 @@
 {% set name = "Protego" %}
-{% set version = "0.1.16" %}
+{% set version = "0.4.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name | lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a682771bc7b51b2ff41466460896c1a5a653f9a1e71639ef365a72e66d8734b4
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
+  sha256: 93a5e662b61399a0e1f208a324f2c6ea95b23ee39e6cbf2c96246da4a656c2f6
 
 build:
-  noarch: python
-  script: "{{ PYTHON }} -m pip install . -vv"
   number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  skip: true  # [py<39]
 
 requirements:
   host:
@@ -20,7 +20,6 @@ requirements:
     - pip
   run:
     - python
-    - six
 
 test:
   requires:
