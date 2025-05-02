@@ -35,7 +35,14 @@ about:
   home: https://github.com/scrapy/protego
   license: BSD 3-Clauses
   license_file: LICENSE
+  license_family: BSD
   summary: A pure-Python robots.txt parser with support for modern conventions
+  description: |
+    A pure-Python robots.txt parser with support for modern conventions
+    like the one defined by Google.
+  doc_url: https://github.com/scrapy/protego
+  dev_url: https://github.com/scrapy/protego
+
 
 extra:
   recipe-maintainers:
