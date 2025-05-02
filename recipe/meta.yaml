@@ -24,16 +24,20 @@ requirements:
     - python
 
 test:
+  imports:
+    - protego
   requires:
+    - pip
     - pytest
   source_files:
     - tests
   commands:
+    - pip check
     - pytest tests
 
 about:
   home: https://github.com/scrapy/protego
-  license: BSD 3-Clauses
+  license: BSD-3-Clause
   license_file: LICENSE
   license_family: BSD
   summary: A pure-Python robots.txt parser with support for modern conventions
