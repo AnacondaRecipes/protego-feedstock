@@ -1,40 +1,52 @@
 {% set name = "Protego" %}
-{% set version = "0.1.16" %}
+{% set version = "0.4.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name | lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a682771bc7b51b2ff41466460896c1a5a653f9a1e71639ef365a72e66d8734b4
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
+  sha256: 93a5e662b61399a0e1f208a324f2c6ea95b23ee39e6cbf2c96246da4a656c2f6
 
 build:
-  noarch: python
-  script: "{{ PYTHON }} -m pip install . -vv"
   number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  skip: true  # [py<39]
 
 requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
   run:
     - python
-    - six
 
 test:
+  imports:
+    - protego
   requires:
+    - pip
     - pytest
   source_files:
     - tests
   commands:
+    - pip check
     - pytest tests
 
 about:
   home: https://github.com/scrapy/protego
-  license: BSD 3-Clauses
+  license: BSD-3-Clause
   license_file: LICENSE
+  license_family: BSD
   summary: A pure-Python robots.txt parser with support for modern conventions
+  description: |
+    A pure-Python robots.txt parser with support for modern conventions
+    like the one defined by Google.
+  doc_url: https://github.com/scrapy/protego
+  dev_url: https://github.com/scrapy/protego
+
 
 extra:
   recipe-maintainers:
