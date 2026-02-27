@@ -15,11 +15,12 @@ build:
     # limiting test data to robots.txt files with names that don't raise eyebrows
     - mv tests/test_data tests/test_data_bak   # [unix]
     - move tests/test_data tests/test_data_bak # [win]
-    - mkdir tests/test_data
+    - mkdir tests/test_data # [unix]
+    - mkdir tests\test_data # [win]
     - mv tests/test_data_bak/ca.yahoo.com tests/test_data/test.com   # [unix]
-    - move tests/test_data_bak/ca.yahoo.com tests/test_data/test.com # [win]
+    - move tests\test_data_bak\ca.yahoo.com tests\test_data\test.com # [win]
     - rm -rf tests/test_data_bak         # [unix]
-    - rmdir /s /q tests/test_data_bak    # [win]
+    - rmdir /s /q tests\test_data_bak    # [win]
     - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip: true  # [py<310]
 
