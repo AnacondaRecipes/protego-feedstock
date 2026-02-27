@@ -1,5 +1,5 @@
 {% set name = "Protego" %}
-{% set version = "0.4.0" %}
+{% set version = "0.6.0" %}
 
 package:
   name: {{ name | lower }}
@@ -7,19 +7,28 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
-  sha256: 93a5e662b61399a0e1f208a324f2c6ea95b23ee39e6cbf2c96246da4a656c2f6
+  sha256: 3466f41438421cf90008e98534d5fde47dc16a17482571d021143ac18b70ace9
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  skip: true  # [py<39]
+  script: 
+    # limiting test data to robots.txt files with names that don't raise eyebrows
+    - mv tests/test_data tests/test_data_bak   # [unix]
+    - move tests/test_data tests/test_data_bak # [win]
+    - mkdir tests/test_data # [unix]
+    - mkdir tests\test_data # [win]
+    - mv tests/test_data_bak/ca.yahoo.com tests/test_data/test.com   # [unix]
+    - move tests\test_data_bak\ca.yahoo.com tests\test_data\test.com # [win]
+    - rm -rf tests/test_data_bak         # [unix]
+    - rmdir /s /q tests\test_data_bak    # [win]
+    - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  skip: true  # [py<310]
 
 requirements:
   host:
     - python
     - pip
-    - setuptools
-    - wheel
+    - hatchling >=1.27.0
   run:
     - python
 
