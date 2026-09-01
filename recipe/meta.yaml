@@ -1,5 +1,5 @@
 {% set name = "Protego" %}
-{% set version = "0.6.0" %}
+{% set version = "0.6.2" %}
 
 package:
   name: {{ name | lower }}
@@ -7,20 +7,20 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
-  sha256: 3466f41438421cf90008e98534d5fde47dc16a17482571d021143ac18b70ace9
+  sha256: 88ff004544ce44e61269cc6f8735f7837d12e09bb77619fc94fbb26b72e5d137
 
 build:
   number: 0
-  script: 
+  script:
     # limiting test data to robots.txt files with names that don't raise eyebrows
-    - mv tests/test_data tests/test_data_bak   # [unix]
-    - move tests/test_data tests/test_data_bak # [win]
-    - mkdir tests/test_data # [unix]
-    - mkdir tests\test_data # [win]
-    - mv tests/test_data_bak/ca.yahoo.com tests/test_data/test.com   # [unix]
-    - move tests\test_data_bak\ca.yahoo.com tests\test_data\test.com # [win]
-    - rm -rf tests/test_data_bak         # [unix]
-    - rmdir /s /q tests\test_data_bak    # [win]
+    - mv tests/test_data tests/test_data_bak  # [unix]
+    - move tests/test_data tests/test_data_bak  # [win]
+    - mkdir tests/test_data  # [unix]
+    - mkdir tests\test_data  # [win]
+    - mv tests/test_data_bak/ca.yahoo.com tests/test_data/test.com  # [unix]
+    - move tests\test_data_bak\ca.yahoo.com tests\test_data\test.com  # [win]
+    - rm -rf tests/test_data_bak  # [unix]
+    - rmdir /s /q tests\test_data_bak  # [win]
     - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip: true  # [py<310]
 
@@ -55,7 +55,6 @@ about:
     like the one defined by Google.
   doc_url: https://github.com/scrapy/protego
   dev_url: https://github.com/scrapy/protego
-
 
 extra:
   recipe-maintainers:
